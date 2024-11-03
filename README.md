@@ -150,7 +150,7 @@ The identified vulnerabilities pose significant risks to Microblog's infrastruct
 - Reduced mean time to detect (MTTD) and respond (MTTR)
 
 ### Team Members
-
+- **[Kevin Gonzalez](https://github.com/kevingonzalez7997)**
 - **[Shafee Ahmed](https://github.com/shafeeshafee)**
 - **[Clinton Kanyali](https://github.com/clintkan)**
 - **[Uzo Bolarinwa](https://github.com/uzobola)**
