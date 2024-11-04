@@ -1,4 +1,29 @@
+# General
+config.env
+*.pem
+*.key
+logs/
+microblog.log*
+
+# Python
+__pycache__/
 *.py[cod]
+*.so
+app.db
+app/**/__pycache__/
+app/translations/**/*.mo
+migrations/**/__pycache__/
+venv/
+dist/
+build/
+.eggs
+.eggs-info
+lib/
+lib64/
+pip-log.txt
+.tox
+.coverage
+nosetests.xml
 
 # C extensions
 *.so
@@ -6,17 +31,14 @@
 # Packages
 *.egg
 *.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
+develop-eggs/
+sdist/
 .installed.cfg
-lib
-lib64
+parts/
+bin/
+var/
+lib/
+lib64/
 __pycache__
 
 # Installer logs
@@ -35,6 +57,10 @@ nosetests.xml
 .project
 .pydevproject
 
-venv
-app.db
-microblog.log*
+# Terraform
+*.tfvars
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
