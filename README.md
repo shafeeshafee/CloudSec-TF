@@ -106,7 +106,7 @@ Critical vulnerabilities were identified in three main areas:
 - **Solution**: 
   - Implement network segmentation with public/private subnets
   - Restrict security group rules to specific CIDRs
-  - Configure HTTPS with proper SSL/TLS termination
+  - Configure HTTPS with proper SSL/TLS termination, and add purchased certificate from CA
   - Implement strict egress rules based on least privilege:
   ```hcl
   # Security-Hardened Configuration
@@ -142,14 +142,17 @@ Critical vulnerabilities were identified in three main areas:
   Login attempt - Username: ' OR '1'='1, Password: ****
   Login attempt - Username: admin'; DROP TABLE users; --, Password: ****
   ```
-- **Solution**: Implement parameterized queries:
+- **Solution**: Removed password logging. Remove password enumeration:
   ```python
-  # Secure Implementation
-  from sqlalchemy import text
-  result = db.session.execute(
-      text("SELECT * FROM users WHERE username = :username"),
-      {"username": username}
-  )
+  # CloudSec-TF update: removed password logging
+          logging.info(f"Login attempt - Username: {username}")
+          
+          user = User.query.filter_by(username=username).first()
+
+          # CloudSec-TF update: prevent username enumeration
+          if user is None or not user.check_password(form.password.data):
+              flash(_('Invalid username or password'))
+              return redirect(url_for('auth.login'))
   ```
 
 ## Additional Findings
