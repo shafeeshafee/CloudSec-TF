@@ -26,13 +26,11 @@ Our analysis of the current infrastructure revealed several security gaps and ar
    - Reviewed existing AWS architecture and configurations
    - Analyzed current security group settings and network access rules
    - Evaluated application deployment practices
-   - Conducted vulnerability scanning using AWS Inspector
-
+   
 2. **Vulnerability Analysis**
    - Performed detailed analysis of security logs
    - Identified critical security gaps in current deployment
-   - Documented suspicious activity patterns
-   - Created risk assessment matrix
+   - Identified suspicious activity patterns
 
 3. **Security Improvements Implementation**
    - Developed hardened security group configurations
@@ -41,10 +39,9 @@ Our analysis of the current infrastructure revealed several security gaps and ar
    - Established secure CI/CD pipeline
 
 4. **Testing and Validation**
-   - Conducted penetration testing on improved infrastructure
    - Validated security group changes
    - Tested application security improvements
-   - Verified monitoring and logging functionality
+   - Implemented monitoring and logging functionality
 
 ### Critical Assets Requiring Protection
 - **Infrastructure Components**
@@ -240,12 +237,19 @@ This architecture also incorporates proper CI/CD pipelines through Jenkins, repl
 
 *In a nutshell:*
 - Multi-AZ setup with proper VPC segmentation
-- WAF protection
-- Dedicated security groups across public and private subnets
-- AWS Shield integration
 - NGINX reverse proxies
 - CI/CD pipelines through Jenkins
+- Dedicated security groups across public and private subnets
 - Monitoring through Node Exporter
+- AWS Security Services Intergration
+- AWS WAF + Shield for DDoS protection and web filtering
+    Additional AWS Security Services Recommendations:
+    - KMS for encryption
+    - Secrets Manager for credentials
+    - GuardDuty for threat detection
+    - Security Hub for security posture management
+    - CloudTrail for audit logging
+    - Config for compliance
 
 ---
 
@@ -255,7 +259,7 @@ This architecture also incorporates proper CI/CD pipelines through Jenkins, repl
 - Use frameworks such as the NIST to adhere to CIA triad
 - Implements controls for PCI DSS compliance
 - Addresses GDPR requirements for data protection
-- Aligns with SOC 2 security principles
+- Align with SOC 2 security principles
 
 ### Success Metrics
 - Zero critical security incidents
