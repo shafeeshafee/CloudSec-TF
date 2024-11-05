@@ -115,13 +115,15 @@ resource "aws_security_group" "web_sg" {
   # HTTP Configuration
   # Security Note: HTTP is only allowed for initial connections
   # Should be configured to redirect to HTTPS
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "HTTP access - should redirect to HTTPS"
-  }
+
+  # Old (insecure)
+  # ingress {
+  #   from_port   = 80
+  #   to_port     = 80
+  #   protocol    = "tcp"
+  #   cidr_blocks = ["0.0.0.0/0"]
+  #   description = "HTTP access - should redirect to HTTPS"
+  # }
 
   # Application Port Configuration
   # Security Hardening: Internal application port access restricted to VPC
