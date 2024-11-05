@@ -1,53 +1,10 @@
 # Microblog Infrastructure Security Audit Report
 
-## Purpose
-This security audit was conducted to assess and enhance the infrastructure security of the Microblog application. The primary goals were to:
-- Identify potential security vulnerabilities in the current deployment
-- Provide actionable remediation steps
-- Ensure compliance with industry security standards
-- Create a roadmap for implementing a more secure architecture
-
-## Steps Taken & Their Importance
-
-1. **Initial Infrastructure Assessment** *(Critical for baseline understanding)*
-   - Conducted comprehensive security scanning
-   - Analyzed current deployment architecture
-   - Reviewed system logs and access patterns
-   - Identified critical assets requiring protection
-
-2. **Vulnerability Analysis** *(Essential for risk identification)*
-   - Performed penetration testing
-   - Analyzed security group configurations
-   - Assessed application security
-   - Reviewed data handling practices
-
-3. **Documentation Review** *(Necessary for compliance)*
-   - Examined existing security policies
-   - Reviewed access control documentation
-   - Analyzed incident response procedures
-   - Assessed compliance requirements
-
-4. **Remediation Planning** *(Crucial for security enhancement)*
-   - Developed specific fix recommendations
-   - Created implementation timeline
-   - Designed new security architecture
-   - Established success metrics
-
 ## Executive Summary
 
-- #### Security Auditors: Shafee Ahmed, Uzo Bolarinwa, Clint Kanyali
-- #### Dates: Nov 1 - 4, 2024
-
-<br />
+#### Security Auditors: Shafee Ahmed, Uzo Bolarinwa, Clint Kanyali
 
 As requested, our team assessed Microblog's infrastructure following reports of suspicious system behavior and unusual user activity. Our comprehensive security audit revealed several critical vulnerabilities that require immediate attention to prevent potential data breaches and ensure the platform's security as the company continues its rapid growth.
-
-
-### Security Event Analysis
-Current security monitoring has detected numerous suspicious events:
-
-![logllama security log analysis](chart_view.png)
-
 
 ### Security Assessment Overview
 Our review identified multiple security concerns requiring immediate attention. The assessment focused on:
@@ -57,10 +14,37 @@ Our review identified multiple security concerns requiring immediate attention. 
 - Application security and deployment practices
 - Monitoring and incident response capabilities
 
-### Current State
+### Current State Assessment
 Our analysis of the current infrastructure revealed several security gaps and areas for improvement. The following diagram illustrates the existing deployment:
 
-<img src="./current_deployment.png" width="700" />
+![Current Deployment](./current_deployment.png)
+
+
+### Project Implementation Steps
+
+1. **Initial Infrastructure Assessment**
+   - Reviewed existing AWS architecture and configurations
+   - Analyzed current security group settings and network access rules
+   - Evaluated application deployment practices
+   - Conducted vulnerability scanning using AWS Inspector
+
+2. **Vulnerability Analysis**
+   - Performed detailed analysis of security logs
+   - Identified critical security gaps in current deployment
+   - Documented suspicious activity patterns
+   - Created risk assessment matrix
+
+3. **Security Improvements Implementation**
+   - Developed hardened security group configurations
+   - Implemented HTTPS with proper SSL/TLS
+   - Configured WAF rules and protection
+   - Established secure CI/CD pipeline
+
+4. **Testing and Validation**
+   - Conducted penetration testing on improved infrastructure
+   - Validated security group changes
+   - Tested application security improvements
+   - Verified monitoring and logging functionality
 
 ### Critical Assets Requiring Protection
 - **Infrastructure Components**
@@ -74,7 +58,6 @@ Our analysis of the current infrastructure revealed several security gaps and ar
 - **Application Components**
   - Application code and configurations
   - Session management systems
-
 
 ### Key Findings
 Critical vulnerabilities were identified in three main areas:
@@ -91,12 +74,16 @@ Critical vulnerabilities were identified in three main areas:
    - Insufficient data encryption
    - Inadequate access controls
 
+### Security Event Analysis
+Current security monitoring has detected numerous suspicious events:
+
+![Security Log Analysis](./chart_view.png)
+
 ### Primary Recommendations
 - Immediate migration to production-grade server infrastructure
 - Implementation of strict security group policies
 - Remediation of SQL injection vulnerabilities
 - Deployment of AWS security services suite (KMS, GuardDuty, Security Hub, etc.)
-
 
 ---
 
@@ -158,7 +145,7 @@ Critical vulnerabilities were identified in three main areas:
 - **Solution**: 
   - Implement network segmentation with public/private subnets
   - Restrict security group rules to specific CIDRs
-  - Configure HTTPS with proper SSL/TLS termination, and add purchased certificate from CA
+  - Configure HTTPS with proper SSL/TLS termination
   - Implement strict egress rules based on least privilege:
   ```hcl
   # Security-Hardened Configuration
@@ -194,7 +181,7 @@ Critical vulnerabilities were identified in three main areas:
   Login attempt - Username: ' OR '1'='1, Password: ****
   Login attempt - Username: admin'; DROP TABLE users; --, Password: ****
   ```
-- **Solution**: Removed password logging. Remove password enumeration:
+- **Solution**: Remove password logging. Prevent password enumeration:
   ```python
   # CloudSec-TF update: removed password logging
           logging.info(f"Login attempt - Username: {username}")
@@ -238,61 +225,14 @@ Here are the specific steps taken to address each vulnerability:
 9. Missing monitoring prevents early detection of security incidents
 10. Lack of session timeouts allows indefinite access after login
 
-## Issues & Troubleshooting
-
-### Common Implementation Challenges
-
-1. **Jenkins Integration Issues**
-   - **Problem**: Initial Jenkins pipeline failures due to Python version mismatch
-   - **Resolution**: Updated Jenkins configuration to use Python 3.7 virtual environment
-
-2. **Security Group Configuration**
-   - **Problem**: Security group changes temporarily disrupted application access
-   - **Resolution**: Implemented staged security group updates to maintain availability
-
-3. **Database Migration Challenges**
-   - **Problem**: Difficulty maintaining data integrity during security updates
-   - **Resolution**: Implemented transaction-based updates with rollback capabilities
-
-## Optimization Considerations
-
-### Benefits of Managed Services
-- Automatic security patches and updates
-- Built-in monitoring and alerting
-- Simplified scaling and redundancy
-- Reduced operational overhead
-
-### Retail Bank Specific Challenges
-
-1. **Data Residency Requirements**
-   - **Issue**: Need to maintain data within specific geographical boundaries
-   - **Solution**: Utilize region-specific AWS deployments with strict data locality controls
-
-2. **Compliance Requirements**
-   - **Issue**: Need to maintain PCI DSS and SOC2 compliance
-   - **Solution**: Implement additional security controls and regular audits
-
-3. **High Availability Requirements**
-   - **Issue**: Need for 99.999% uptime
-   - **Solution**: Multi-region deployment with automated failover
-
-### Disadvantages of Elastic Beanstalk
-1. Limited customization options
-2. Potential vendor lock-in
-3. Higher costs at scale
-4. Less granular control over infrastructure
-
-<hr />
-<br />
+---
 
 # Secure Deployment Design
 The infrastructure diagram below illustrates our recommended secure architecture that addresses the current vulnerabilities in the Microblog application:
 
-![secure optimized deployment](ideal_deployment.png)
+![Secure Optimized Deployment](./ideal_deployment.png)
 
 ## This new architecture incorporates:
-
-The infrastructure diagram below illustrates an ideal secure architecture that would address the current vulnerabilities in the Microblog application.
 
 By implementing a multi-AZ setup with proper VPC segmentation, WAF protection, and dedicated security groups across public and private subnets, it offers significant improvements over the current single-instance deployment. The addition of AWS Shield and WAF would prevent SQL injection attempts, while the separation of components into private subnets with controlled access through NGINX reverse proxies would eliminate the current security group exposure.
 
@@ -324,11 +264,7 @@ This architecture also incorporates proper CI/CD pipelines through Jenkins, repl
 - Reduced mean time to detect (MTTD) and respond (MTTR)
 
 ## Conclusion
-The identified vulnerabilities pose significant risks to Microblog's infrastructure and user data. Through our comprehensive security audit and implementation of the recommended fixes, we've established a more robust and secure foundation for the application. The migration to a production-grade environment, implementation of proper security controls, and adoption of AWS managed services has significantly enhanced the platform's security posture.
-
-The architectural improvements and security measures put in place not only address current vulnerabilities but also provide a scalable framework for future growth. By following industry best practices and maintaining vigilant monitoring, Microblog is now better positioned to protect user data and maintain service reliability.
-
-Moving forward, regular security assessments and continued adherence to the established security protocols will be crucial for maintaining this enhanced security posture. The team should also stay informed about emerging threats and continue to evolve security measures accordingly.
+The identified vulnerabilities pose significant risks to Microblog's infrastructure and user data. By implementing the recommended fixes for the three critical vulnerabilities and following the proposed timeline for additional security measures, Microblog can significantly improve its security posture and protect against potential threats as it continues to scale.
 
 ---
 
