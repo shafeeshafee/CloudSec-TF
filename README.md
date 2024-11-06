@@ -88,14 +88,32 @@ Current security monitoring has detected numerous suspicious events:
 
 ### Three Critical Vulnerabilities Addressed
 
-#### 1. Development Server in Production Environment
+#### 1. Logging Issues
 - **Severity**: Critical
 - **Issue**: The application currently runs on Flask's development server in production
-- **Evidence**: 
+- **Evidence 1**: 
   ```log
   INFO:werkzeug:WARNING: This is a development server. Do not use it in a production deployment.
   WARNING:werkzeug: * Debugger is active!
   INFO:werkzeug: * Debugger PIN: 109-208-768
+  ```
+- **Evidence 2**: 
+  ```log
+  INFO:werkzeug: * Running on all addresses (0.0.0.0)
+  * Running on http://127.0.0.1:5000
+  * Running on http://172.31.4.239:5000
+  INFO:werkzeug: Press CTRL+C to quit
+  INFO:werkzeug: * Restarting with stat
+  WARNING:werkzeug: * Debugger is active!
+  INFO:werkzeug: * Debugger PIN: 112-130-713
+  INFO:werkzeug:75.47.217.196 - - [04/Nov/2024 01:38:51] "GET /auth/login?next=/ HTTP/1.1" 302 -
+  INFO:werkzeug:75.47.217.196 - - [04/Nov/2024 01:38:51] "GET /auth/login?next=/ HTTP/1.1" 200 -
+  INFO:werkzeug:75.47.217.196 - - [04/Nov/2024 01:38:52] "GET /favicon.ico HTTP/1.1" 404 -
+  INFO:root:Login attempt - Username: Uzo, Password: uzostrongpassword
+  INFO:werkzeug:75.47.217.196 - - [04/Nov/2024 01:39:44] "POST /auth/login?next=/ HTTP/1.1" 302 -
+  INFO:werkzeug:75.47.217.196 - - [04/Nov/2024 01:39:44] "GET /auth/login HTTP/1.1" 200 -
+  INFO:werkzeug:75.47.217.196 - - [04/Nov/2024 01:40:57] "POST /auth/login HTTP/1.1" 302 -
+  INFO:werkzeug:75.47.217.196 - - [04/Nov/2024 01:40:57] "GET /auth/login HTTP/1.1" 200 -
   ```
 - **Key Issues**:
   - Not designed for production loads
@@ -121,6 +139,10 @@ Current security monitoring has detected numerous suspicious events:
   WantedBy=multi-user.target
   EOF
   ```
+#### No password from logging
+
+![no password logging](nopwlog.png)
+
 
 #### 2. Overly Permissive Security Groups
 - **Severity**: Critical
